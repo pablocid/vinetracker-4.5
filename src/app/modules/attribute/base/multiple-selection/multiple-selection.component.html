@@ -1,0 +1,32 @@
+<mat-card style="position:relative;">
+  <mat-card-header align="center">
+    <mat-card-title>{{description | async}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content> <span #entry></span> </mat-card-content>
+</mat-card>
+
+<ng-template #listViewTmpl>
+  <div align="center" *ngIf="listViewValue | async">
+    <mat-chip-list *ngFor="let option of listViewValue | async ">
+      <mat-chip color="primary">{{option}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <div style="display:block; position: absolute; top:-10px; right:-10px;" *ngIf="canEdit">
+    <button mat-fab color="accent" (click)="assessAttr()">
+      <mat-icon>create</mat-icon>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #editViewTmpl>
+  <mat-list>
+    <mat-list-item *ngFor="let option of options$ | async ; let i = index ">
+      <!-- <span mat-line>{{option.string}}</span> -->
+      <!-- <ion-toggle [checked]="option.selected" (ionChange)="optionChange($event, option, i)" slot="end" color="tertiary"></ion-toggle> -->
+      <mat-slide-toggle (change)="optionChange($event, option, i)" class="example-margin" color="accent" [checked]="option.selected">
+        {{option.string}}
+      </mat-slide-toggle>
+    </mat-list-item>
+  </mat-list>
+
+</ng-template>

@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "showCircularDependencies": false,
             "outputPath": "dist/a7-pwa",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -27,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -83,6 +85,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -135,5 +138,8 @@
       }
     }
   },
-  "defaultProject": "a7-pwa"
+  "defaultProject": "a7-pwa",
+  "cli": {
+    "defaultCollection": "akita-schematics"
+  }
 }

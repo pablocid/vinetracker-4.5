@@ -1,0 +1,64 @@
+<mat-toolbar class="mat-elevation-z6" color="primary">
+  <mat-toolbar-row>
+    <span>Espaldera/Hilera</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="exit(false)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div style="text-align:center;" *ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+
+<mat-list *ngIf="espaldera$ | async">
+  <mat-list-item>
+    <mat-icon mat-list-icon>radio_button_unchecked</mat-icon>
+    <h1 mat-line>Espaldera seleccionada</h1>
+    <h2 mat-line>Espaldera {{espaldera$ | async}}</h2>
+    <button mat-button color="tertiary" (click)="unsetE()" slot="end" fill="clear" size="large">
+      <mat-icon>radio_button_unchecked</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<mat-list *ngIf="hilera$ | async">
+  <mat-list-item>
+    <mat-icon mat-list-icon>radio_button_unchecked</mat-icon>
+    <h1 mat-line>Hilera seleccionada</h1>
+    <h2 mat-line>Hilera {{hilera$ | async}}</h2>
+    <button mat-button color="tertiary" (click)="unsetH()" slot="end" fill="clear" size="large">
+      <mat-icon>radio_button_unchecked</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<mat-list *ngIf="!(espaldera$ | async)">
+  <mat-list-item *ngFor="let row of (rows$ | async)">
+    <mat-icon mat-list-icon>radio_button_unchecked</mat-icon>
+    <h2 mat-line>Espaldera {{row.espaldera}} </h2>
+    <button mat-button (click)="setE(row.espaldera)" slot="end" fill="clear" size="large">
+      <mat-icon mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+
+
+<mat-list *ngIf="!(hilera$ | async) && (hileras$ | async)?.length">
+  <mat-list-item *ngFor="let hilera of hileras$ | async">
+    <mat-icon mat-list-icon>radio_button_unchecked</mat-icon>
+    <h2 mat-line> Hilera {{hilera}}</h2>
+    <button mat-button (click)="setH(hilera)" slot="end" fill="clear" size="large">
+      <mat-icon mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+
+<button mat-button *ngIf="(espaldera$ | async) &&(hilera$ | async)" (click)="exit(true)" expand="full" size="large"
+  color="tertiary">
+  Comenzar evaluación
+  <mat-icon mat-icon>list_alt</mat-icon>
+</button>

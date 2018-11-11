@@ -1,0 +1,7 @@
+<h3>{{data.header}}</h3>
+<mat-nav-list>
+  <mat-list-item *ngFor="let button of data.buttons" (click)="option(button.handler)">
+    <mat-icon *ngIf="button.icon" mat-list-icon>{{button.icon}}</mat-icon>
+    <h4 mat-line>{{button.text}}</h4>
+  </mat-list-item>
+<mat-nav-list>

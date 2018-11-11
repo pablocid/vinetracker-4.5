@@ -1,0 +1,31 @@
+<mat-card style="position:relative;">
+  <mat-card-header align="center">
+    <mat-card-title>{{description | async}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <span #entry></span>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #listViewTmpl>
+  <div align="center" *ngIf="listViewValue | async">
+    <p>{{listViewValue | async}}</p>
+  </div>
+  <div style="display:block; position: absolute; top:-10px; right:-10px;" *ngIf="canEdit">
+    <button mat-fab color="accent" (click)="assessAttr()">
+      <mat-icon>create</mat-icon>
+    </button>
+  </div>
+
+</ng-template>
+
+<ng-template #editViewTmpl>
+  <!-- 
+  <textarea style="background-color:rgba(0,0,0,0.1);color:black; width:100%; border: none;  height:300px;" [(ngModel)]='textareaValue'
+    (blur)="onTAChange($event)"></textarea> -->
+
+  <mat-form-field>
+    <textarea [(ngModel)]='textareaValue' [value]="textareaValue" (blur)="onTAChange($event)"  matInput placeholder="Escribir aquí"></textarea>
+  </mat-form-field>
+
+</ng-template>

@@ -1,0 +1,7 @@
+
+<input hidden #inputPhoto type="file" capture="camera"
+[imageToDataUrl]="options" (imageSelected)="selected($event)" accept="image/png,image/jpeg">
+
+  <button mat-icon-button expand="block" (click)="take()" color="tertiary">
+    {{label}} <mat-icon>camera_alt</mat-icon>
+  </button>

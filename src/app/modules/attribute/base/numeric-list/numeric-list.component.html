@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header align="center">
+    <mat-card-title>{{description | async}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content> <span #entry></span> </mat-card-content>
+</mat-card>
+
+<ng-template #listViewTmpl>
+  <div align="center" *ngIf="listViewValue | async">
+    <h2>{{listViewValue | async}} {{(config$ | async)?.unit}}</h2>
+  </div>
+  <div style="display:block; position: absolute; top:-10px; right:-10px;" *ngIf="canEdit">
+    <button mat-fab color="accent" (click)="assessAttr()">
+      <mat-icon>create</mat-icon>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #editViewTmpl>
+  <div align="center">
+    <h2>
+      {{editViewValue | async}}
+      <span *ngIf="!(editViewValue | async)"> - </span>
+      {{(config$ | async)?.unit}}
+    </h2>
+    <mat-slider style="width:100%;" thumbLabel [min]="(config$ | async)?.min" [max]="(config$ | async)?.max" [step]="(config$ | async)?.step"
+      (change)="onChangeValue($event)" [value]="editViewValue | async">
+    </mat-slider>
+  </div>
+</ng-template>

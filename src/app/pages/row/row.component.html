@@ -1,0 +1,52 @@
+<mat-toolbar class="mat-elevation-z6 toolbar-fixed" color="primary">
+  <mat-toolbar-row>
+    <div fxFlex="25%" align="star">
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+    <h1 fxFlex="25%" align="center">
+      <span> E{{espaldera$ | async }} H{{hilera$ | async}}</span>
+    </h1>
+    <h1 fxFlex="25%" align="center">
+      <span style="font-size:15px; margin:0; padding: 0;">{{title$ | async}}</span>
+    </h1>
+    <div fxFlex="25%" align="end">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="toReverse()">
+          <mat-icon>reorder</mat-icon>
+          <span>Cambiar orden de plantas</span>
+        </button>
+        <button mat-menu-item (click)="updateList()">
+          <mat-icon>sync</mat-icon>
+          <span>Actualizar la lista</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+   <mat-toolbar-row>
+     <div fxFlex="100%" align="center" class="badgets">
+        <mat-icon (click)="presentToast('plantas sin evaluar')" matBadgeColor="accent" [matBadge]="noEvaluadas$ | async" matBadgePosition="above after">check_box_outline_blank</mat-icon>
+        <mat-icon (click)="presentToast('plantas evaluadas')"   matBadgeColor="accent" [matBadge]="evaluadas$ | async"   matBadgePosition="above after">check_box</mat-icon>
+        <mat-icon (click)="presentToast('plantas seleccionadas')" matBadgeColor="accent" [matBadge]="selected$ | async" matBadgePosition="above after" *ngIf="selected$ | async">starts</mat-icon>
+        <mat-icon (click)="presentToast('plantas descartadas')"   matBadgeColor="accent" [matBadge]="descartadas$ | async"   matBadgePosition="above after">indeterminate_check_box</mat-icon>
+        <mat-icon (click)="presentToast('plantas restringidas para evaluación')"   matBadgeColor="accent" [matBadge]="restringidas$ | async"   matBadgePosition="above after">block</mat-icon>        
+     </div>
+  </mat-toolbar-row> 
+</mat-toolbar>
+
+
+
+<div class="app-container">
+
+  <div style="text-align:center;" *ngIf="isLoggin$ | async">
+    <mat-spinner style="display: inline-block;" color="accent"></mat-spinner>
+    <p>cargando plantas de la hilera ...</p>
+  </div>
+  <app-plant-list (savingAttr)="savingAttr()" *ngIf="!(isLoggin$ | async)" [rowsConfig]="rowConfig$ | async" (changeDetection)="change()" (assess)="toAssess($event)"
+    [editable]="editable$ | async"></app-plant-list>
+
+</div>

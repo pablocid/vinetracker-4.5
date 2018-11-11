@@ -1,0 +1,25 @@
+<mat-toolbar class="mat-elevation-z6 toolbar-fixed" color="primary">
+  <mat-toolbar-row>
+    <div fxFlex="25%" align="star">
+      <button mat-icon-button (click)="goBackConfirm()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+    <h1 fxFlex="50%" align="center">
+      Evaluación
+    </h1>
+    <div fxFlex="25%" align="end">
+      <button mat-icon-button (click)="more()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="app-container">
+  <app-attribute (goBack)="goBack()" [attribute]="activeAttr$ | async" [edit]="true"></app-attribute>
+</div>
+
+<button style="margin: 20px; position:fixed; right: 0; bottom: 0; z-index: 99;" mat-fab color="accent" *ngIf="showSave" (click)="saveConfirm()">
+  <mat-icon>save</mat-icon>
+</button>
