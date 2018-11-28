@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentInit } from '@angular/core';
 import { SelectionComponent } from '../selection/selection.component';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { MatBottomSheet } from '@angular/material';
   templateUrl: './selection-img.component.html',
   styleUrls: ['./selection-img.component.scss']
 })
-export class SelectionImgComponent extends SelectionComponent {
+export class SelectionImgComponent extends SelectionComponent implements AfterContentInit {
 
   public listViewImg: Observable<any>;
   imgOptions$: Observable<any>;
@@ -17,6 +17,8 @@ export class SelectionImgComponent extends SelectionComponent {
   constructor(
     protected bottomSheet: MatBottomSheet
   ) { super(bottomSheet); }
+
+  automaticOptionShow() {}
 
   protected _setupOnInit() {
     this.listViewValue = this.attribute$.pipe(map(attr => {
@@ -43,6 +45,7 @@ export class SelectionImgComponent extends SelectionComponent {
     }));
 
   }
+
 
 
   public onImageTouch(imgOpt) {

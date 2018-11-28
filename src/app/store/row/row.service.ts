@@ -18,16 +18,21 @@ export class RowService {
   ) {
   }
 
-  public async getRow(notShowLoading?: boolean) {
+  public async getRow(notShowLoading?: boolean, reverse?: boolean) {
     if (!notShowLoading) {
       this.rowStore.setLoading(true);
-     }
+    }
     const assessSchm = this.evalQ.getActive().id;
     const E = this.assessQ.getSnapshot().selection.e;
     const H = this.assessQ.getSnapshot().selection.h;
-    console.log('E, H, assessSchm', E, H, assessSchm);
+    // console.log('E, H, assessSchm', E, H, assessSchm);
     const results = await this.stitch.client.callFunction('getHilera', [E, H, assessSchm]);
-    this.rowStore.set(results);
+    if (reverse) {
+      this.rowStore.set(results.reverse());
+    } else {
+      this.rowStore.set(results);
+    }
+
     this.rowStore.setLoading(false);
   }
 
@@ -39,7 +44,7 @@ export class RowService {
     try {
       console.log('IDS row assesSchm', rowId, assessSchm);
       const results = await this.stitch.client.callFunction('getPlant', [rowId, assessSchm]);
-      console.log('this.stitch.client.callFunction(getPlant', results);
+      // console.log('this.stitch.client.callFunction(getPlant', results);
       this.rowStore.set([results]);
       this.rowStore.setActive(rowId);
     } catch (error) {
@@ -54,7 +59,7 @@ export class RowService {
     try {
       console.log('IDS row assesSchm', rowId, assessSchm);
       const results = await this.stitch.client.callFunction('getPlant', [rowId, assessSchm]);
-      console.log('this.stitch.client.callFunction(getPlant', results);
+      // console.log('this.stitch.client.callFunction(getPlant', results);
       this.rowStore.update(rowId, results);
     } catch (error) {
       console.log('error en updateRowItem', error);
@@ -73,7 +78,7 @@ export class RowService {
   public async updateAttr(plantId, attrId, value, opts) {
     const assessId = this.evalQ.getActive().id;
     const result = await this.stitch.client.callFunction('updateAttr', [plantId, assessId, attrId, value, opts]);
-    console.log('updateAttr', result);
+    // console.log('updateAttr', result);
     const item = await this.stitch.client.callFunction('getPlant', [plantId, assessId]);
     this.rowStore.update(plantId, item);
     return;
@@ -85,7 +90,7 @@ export class RowService {
 
     console.log('updateEntity params', [plantId, assessId, value, opts]);
     const result = await this.stitch.client.callFunction('updateEntity', [plantId, attrId, value, opts]);
-    console.log('updateAttr', result);
+    // console.log('updateAttr', result);
     const item = await this.stitch.client.callFunction('getPlant', [plantId, assessId]);
     this.rowStore.update(plantId, item);
   }

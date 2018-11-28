@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentInit } from '@angular/core';
 import { BaseComponent } from '../base.component';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { MatBottomSheet } from '@angular/material';
   templateUrl: './selection.component.html',
   styleUrls: ['./selection.component.scss']
 })
-export class SelectionComponent extends BaseComponent {
+export class SelectionComponent extends BaseComponent implements AfterContentInit {
   options$: Observable<any>;
 
   constructor(
@@ -32,6 +32,16 @@ export class SelectionComponent extends BaseComponent {
     this.options$ = this.attribute$.pipe(map(attr => {
       return this.getAttr(attr.config, 'options', 'listOfObj');
     }));
+  }
+
+  ngAfterContentInit() {
+    this.automaticOptionShow();
+  }
+
+  automaticOptionShow() {
+    if (this.edit) {
+      this.presentActionSheet();
+    }
   }
 
   async buttons(): Promise<IOptionsDialogButton[]> {

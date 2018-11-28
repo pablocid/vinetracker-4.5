@@ -14,8 +14,8 @@ export class ImagePickerComponent implements OnInit {
     public get options(): Options {
         return {
             resize: {
-                maxHeight: 1000,
-                maxWidth: 1000
+                maxHeight: 700,
+                maxWidth: 700
             },
             allowedExtensions: ['JPG', 'jpeg', 'PnG']
         };

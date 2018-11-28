@@ -38,6 +38,7 @@ export class AssessmentService {
   }
 
   public async setEHPfromScanCode(code) {
+    this.assessmentStore.setLoading(true);
     const selection = await this.stitch.fromScanToSelection(code);
     this.assessmentStore.setState(s => {
       return {
@@ -45,6 +46,7 @@ export class AssessmentService {
         selection
       };
     });
+    this.assessmentStore.setLoading(false);
   }
 
   public setEspaldera(e: number) {

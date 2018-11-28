@@ -20,8 +20,8 @@ export class ImageCaptureComponent extends BaseComponent {
   public numOfPics: Observable<number>;
   public currentNumOfPics: Observable<number>;
   public local$: BehaviorSubject<any[]>;
-  public bucketUrl = 'https://s3.amazonaws.com/pmgv-files-test/';
-  public bucketUrlThumb = 'https://s3.amazonaws.com/pmgv-files-test/thumbnails/';
+  public bucketUrl = 'https://s3.amazonaws.com/pmgv-files-v2/';
+  public bucketUrlThumb = 'https://s3.amazonaws.com/pmgv-files-v2/thumbnails/';
   public fileHolder = [];
   public theFile;
   public uploading: boolean;
@@ -80,7 +80,7 @@ export class ImageCaptureComponent extends BaseComponent {
     this.currentNumOfPics = this.listViewValue.pipe(map(x => x.length));
     // this.local$.next(this.initPicArray());
 
-    this.listViewValue.subscribe(x => console.log('listViewValue', x));
+    // this.listViewValue.subscribe(x => console.log('listViewValue', x));
   }
 
   // initPicArray() {

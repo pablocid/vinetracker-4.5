@@ -14,22 +14,22 @@
 
 <mat-list *ngIf="espaldera$ | async">
   <mat-list-item>
-    <mat-icon mat-list-icon>radio_button_unchecked</mat-icon>
+    <mat-icon mat-list-icon>view_module</mat-icon>
     <h1 mat-line>Espaldera seleccionada</h1>
     <h2 mat-line>Espaldera {{espaldera$ | async}}</h2>
     <button mat-button color="tertiary" (click)="unsetE()" slot="end" fill="clear" size="large">
-      <mat-icon>radio_button_unchecked</mat-icon>
+      <mat-icon>close</mat-icon>
     </button>
   </mat-list-item>
 </mat-list>
 
 <mat-list *ngIf="hilera$ | async">
   <mat-list-item>
-    <mat-icon mat-list-icon>radio_button_unchecked</mat-icon>
+    <mat-icon mat-list-icon>view_week</mat-icon>
     <h1 mat-line>Hilera seleccionada</h1>
     <h2 mat-line>Hilera {{hilera$ | async}}</h2>
     <button mat-button color="tertiary" (click)="unsetH()" slot="end" fill="clear" size="large">
-      <mat-icon>radio_button_unchecked</mat-icon>
+      <mat-icon>close</mat-icon>
     </button>
   </mat-list-item>
 </mat-list>
@@ -57,8 +57,8 @@
 </mat-list>
 
 
-<button mat-button *ngIf="(espaldera$ | async) &&(hilera$ | async)" (click)="exit(true)" expand="full" size="large"
-  color="tertiary">
+<button mat-raised-button color="accent" *ngIf="(espaldera$ | async) &&(hilera$ | async)" (click)="exit(true)" expand="full" size="large"
+style="width:100%">
   Comenzar evaluación
   <mat-icon mat-icon>list_alt</mat-icon>
 </button>

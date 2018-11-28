@@ -7,7 +7,7 @@
     </div>
     <div align="center" fxFlex="50%" fxLayout="column" fxFlexAlign="baseline">
       <div style="margin:0; padding: 0;">{{position$ | async}}</div>
-      <div style="font-size:10px; margin:0; padding: 0;">{{name$ | async}}</div>
+      <div style="font-size:15px; margin:0; padding: 0;">{{name$ | async}}</div>
     </div>
     <div fxFlex="25%" align="end">
       <button *ngIf="!(assessLoading$ | async)" mat-icon-button [matMenuTriggerFor]="menu">
@@ -43,7 +43,13 @@
     </div>
   </div>
 
-  <div *ngIf="!(assessLoading$ | async)" fxLayout="column" fxLayoutAlign="space-between">
-    <app-attribute style="padding-bottom:15px; " *ngFor="let attr of activeAttr | async" [attribute]="attr" (goAssess)="assessAttr($event)" [canEdit]="canEdit$ | async"></app-attribute>
+  <div fxLayout="column" fxLayoutAlign="space-between">
+    <div style="padding-bottom:15px; " *ngFor="let attr of (activeAttr | async); trackBy: trackById">
+      <app-attribute [id]="attr" [attribute]="attr" (goAssess)="assessAttr($event)" [canEdit]="canEdit$ | async"></app-attribute>
+
+      <!-- <mat-list role="list">
+          <mat-list-item [id]="attr" role="listitem">{{attr}} <button mat-button (click)="assessAttr(attr)"> Assess</button></mat-list-item>
+        </mat-list> -->
+    </div>
   </div>
 </div>

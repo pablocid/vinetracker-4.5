@@ -93,7 +93,7 @@ export class AttributeComponent implements OnInit, AfterContentInit, OnDestroy {
     const component = this.getAttr(this.attributesComponentList, id, 'component');
     if (!component) {
       // throw new Error('El id ' + id + ' no tiene componente');
-      console.log('El id ' + id + ' no tiene componente');
+      // console.log('El id ' + id + ' no tiene componente');
       return;
     }
     this.entity = this.getAttr(this.attributesComponentList, id, 'entity');

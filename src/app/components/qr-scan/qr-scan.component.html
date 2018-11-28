@@ -1,7 +1,7 @@
 <input hidden #inputPhoto type="file" capture="camera" [imageToDataUrl]="options" (imageSelected)="selected($event)"
   accept="image/*;capture=camera">
 
-<button mat-icon-button (click)="take()" size="large" color="tertiary">
+<button class="mat-btn-md" mat-raised-button color="success" (click)="take()" size="large" color="tertiary">
   Scan
-  <mat-icon>control_camera</mat-icon>
+  <mat-icon>photo_camera</mat-icon>
 </button>

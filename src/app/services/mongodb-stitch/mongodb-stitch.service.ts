@@ -50,12 +50,12 @@ export class StitchService {
     }
 
     private async setListener() {
-        console.log('setting listener');
+        // console.log('setting listener');
         this.listener = {
             onAuthEvent: (event) => {
                 if (!event.isLoggedIn) {
                     console.log('Event logout');
-                    this.router.navigate(['login']);
+                    // this.router.navigate(['login']);
                 }
                 if (event.isLoggedIn) { console.log('Event login'); }
                 this.isLoggedIn$.next(event.isLoggedIn);

@@ -28,6 +28,7 @@ export class AttributePageComponent implements OnInit {
   public activeAttr$ = this.attrQ.selectActiveId();
 
   ngOnInit() {
+    // console.log('window.history ', window.history );
     this.showSave = this.attrQ.getActiveId() === '581a356c5c0eac001077ad6e' ? false : true;
   }
   public goBack() {
@@ -66,19 +67,20 @@ export class AttributePageComponent implements OnInit {
   // }
 
   async saveConfirm() {
-    const data: IConfirmDialogData = {};
-    data.header = '¿Guardar?';
-    data.message = 'Desea guardar los cambios';
-    data.okLabel = 'Guardar';
+    this.save();
+    // const data: IConfirmDialogData = {};
+    // data.header = '¿Guardar?';
+    // data.message = 'Desea guardar los cambios';
+    // data.okLabel = 'Guardar';
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, { data });
-    const unsub = dialogRef.afterClosed().subscribe(x => {
-      unsub.unsubscribe();
-      // console.log('dialog', x);
-      if (x) {
-        this.save();
-      }
-    });
+    // const dialogRef = this.dialog.open(ConfirmDialogComponent, { data });
+    // const unsub = dialogRef.afterClosed().subscribe(x => {
+    //   unsub.unsubscribe();
+    //   // console.log('dialog', x);
+    //   if (x) {
+    //     this.save();
+    //   }
+    // });
   }
 
   async deleteConfirm() {

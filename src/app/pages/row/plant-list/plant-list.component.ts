@@ -213,8 +213,10 @@ export class PlantListComponent implements OnInit {
       unsub.unsubscribe();
       if (x) {
         console.log('UPDATE', row.location);
-        // await this.rowS.updateEntity(row.id, '5bd14b4bd71ef20014e4b327', 'no_selected', {});
-        // this.changeDetection.emit();
+        this.rowS.updateEntity(row.id, '5bd14b4bd71ef20014e4b327', 'no_selected', {})
+          .then( () => {
+            this.changeDetection.emit();
+          });
       }
     });
   }

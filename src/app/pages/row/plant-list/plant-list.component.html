@@ -3,7 +3,7 @@
 <ng-template #fen1>
 
   <mat-list>
-    <mat-list-item *ngFor="let row of rowsConfig.rows; trackBy: trackById" [ngClass]="setColorClass(row)">
+    <mat-list-item [id]="row.id" *ngFor="let row of rowsConfig.rows; trackBy: trackById" [ngClass]="setColorClass(row)">
       <mat-icon *ngIf="row.selected === null " mat-list-icon>nature</mat-icon>
       <mat-icon *ngIf="row.selected === 'no_selected'" mat-list-icon>remove_circle</mat-icon>
       <mat-icon *ngIf="row.selected === 'selected'" mat-list-icon>stars</mat-icon>
@@ -25,7 +25,7 @@
 <ng-template #brix>
 
   <mat-list>
-    <mat-list-item *ngFor="let row of rowsConfig.rows; trackBy: trackById" [ngClass]="setColorClass(row)">
+    <mat-list-item [id]="row.id" *ngFor="let row of rowsConfig.rows; trackBy: trackById" [ngClass]="setColorClass(row)">
       <mat-icon mat-list-icon>nature</mat-icon>
       <h2 mat-line>Planta {{row.location}}</h2>
       <h4 mat-line *ngIf="row.discard">DESCARTADA</h4>
@@ -48,7 +48,7 @@
 
 <ng-template #fen0>
   <mat-list>
-    <mat-list-item *ngFor="let row of rowsConfig.rows; trackBy: trackById" [ngClass]="setColorClass(row)">
+    <mat-list-item [id]="row.id" *ngFor="let row of rowsConfig.rows; trackBy: trackById" [ngClass]="setColorClass(row)">
       <mat-icon *ngIf="row.selected === null " mat-list-icon>nature</mat-icon>
       <mat-icon *ngIf="row.selected === 'no_selected'" mat-list-icon>remove_circle</mat-icon>
       <mat-icon *ngIf="row.selected === 'selected'" mat-list-icon>stars</mat-icon>

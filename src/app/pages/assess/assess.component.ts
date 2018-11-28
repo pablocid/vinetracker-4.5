@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { EvaluationsQuery } from 'src/app/store/evaluations';
 import { RowQuery, RowService } from 'src/app/store/row';
 import { AttributeService, AttributeQuery } from 'src/app/store/attribute';
@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material';
   templateUrl: './assess.component.html',
   styleUrls: ['./assess.component.css']
 })
-export class AssessComponent implements OnInit {
+export class AssessComponent implements OnInit, AfterViewInit {
 
   constructor(
     private location: Location,
@@ -28,7 +28,9 @@ export class AssessComponent implements OnInit {
     private assessQ: AssessmentQuery,
     private router: Router,
     private dialog: MatDialog
-  ) { }
+  ) {
+    // console.log('CONSTRUCTOR Assess component', );
+  }
 
   public canEdit$ = this.evalQ.selectActive().pipe(map(e => e.editable));
   public assessLoading$ = this.assessQ.selectLoading();
@@ -52,27 +54,45 @@ export class AssessComponent implements OnInit {
       };
     })));
 
-  public ss = ['5808de89832db50010d3192c',
-    '580c121390cc2700100db1d3', '57c8a0cca774d31000b71cd4',
-    '5851a6970cb9af0011197939', '580c0caf90cc2700100db1d2',
-    '580c082b12e1240010cd9d64', '5851a7fc0cb9af001119793a'];
-
   ngOnInit() {
-
+    // console.log('OnINIT Assess component', );
+    // console.log('window.history ', window.history);
   }
+
+  ngAfterViewInit() {
+    this.scroll(this.attrQ.getActiveId());
+  }
+  scroll(id) {
+    // console.log(`scrolling to ${id}`);
+    const el = document.getElementById(id);
+    // console.log('el', el);
+    if (el) {
+      const opt: ScrollIntoViewOptions = {
+        behavior: 'instant',
+        block: 'center'
+      };
+      el.scrollIntoView(opt);
+    }
+  }
+
+  trackById(index, item) {
+    // console.log('item', item);
+    return item;
+  }
+
   assessAttr(attrId) {
-    console.log('EValuar', attrId);
+    // console.log('EValuar', attrId);
     this.attrS.setActive(attrId);
-    this.router.navigate(['attribute']);
+    this.router.navigate(['/attribute']);
   }
 
   updateAssess() {
     this.assessS.getAssessment();
   }
 
-  public goBack() {
-    this.rowS.updateRowItem();
+  public async goBack() {
     this.location.back();
+    await this.rowS.updateRowItem();
   }
 
   public async goBackConfirm() {
@@ -83,7 +103,6 @@ export class AssessComponent implements OnInit {
       this.goBack();
     }
   }
-
 
   async presentAlertConfirm() {
 

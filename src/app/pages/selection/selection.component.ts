@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EvaluationsQuery } from 'src/app/store/evaluations';
-import { AssessmentService } from 'src/app/store/assessment';
+import { AssessmentService, AssessmentQuery } from 'src/app/store/assessment';
 import { Router } from '@angular/router';
 import { RowService } from 'src/app/store/row';
 import { Location } from '@angular/common';
@@ -19,6 +19,7 @@ export class SelectionComponent implements OnInit {
   constructor(
     private evalQ: EvaluationsQuery,
     private assessS: AssessmentService,
+    private assessQ: AssessmentQuery,
     public router: Router,
     public rowS: RowService,
     public location: Location,
@@ -27,6 +28,7 @@ export class SelectionComponent implements OnInit {
   ) { }
 
   public assessmentName$ = this.evalQ.selectActive(s => s.label);
+  public isLoggin$ = this.assessQ.selectLoading();
 
   ngOnInit() {
   }
@@ -41,6 +43,8 @@ export class SelectionComponent implements OnInit {
       await this.assessS.setEHPfromScanCode(code);
       this.rowS.getRow();
       this.router.navigate(['row']);
+    } else {
+      alert('Error de lectura');
     }
   }
 

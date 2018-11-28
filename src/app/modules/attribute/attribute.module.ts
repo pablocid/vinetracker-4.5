@@ -4,7 +4,6 @@ import { AttributeComponent } from './attribute.component';
 import { MaterialModule } from '../material.module';
 import { ShareModule } from '../share.module';
 import { ImageToDataUrlModule } from 'ngx-image2dataurl';
-import { QrScanComponent } from 'src/app/components/qr-scan/qr-scan.component';
 import { BaseComponent } from './base/base.component';
 import { FormsModule } from '@angular/forms';
 import { SelectionComponent } from './base/selection/selection.component';
@@ -24,7 +23,6 @@ const inputs = [
 @NgModule({
   declarations: [
     AttributeComponent,
-    QrScanComponent,
     ImagePickerComponent,
     ...inputs
   ],

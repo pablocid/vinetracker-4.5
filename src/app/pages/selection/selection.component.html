@@ -1,12 +1,38 @@
-<p>
-  selection works!
-</p>
+<mat-toolbar class="mat-elevation-z6 toolbar-fixed" color="primary">
+  <div fxFlex="25%" align="star">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+  </div>
+  <h3 align="center" fxFlex="50%">
+    Selección de plantas
+  </h3>
+  <div fxFlex="25%" align="end">
+    <!-- <button *ngIf="!(assessLoading$ | async)" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="updateAssess()">
+          <mat-icon>sync</mat-icon>
+          <span>Actualizar</span>
+        </button>
+      </mat-menu> -->
+  </div>
+</mat-toolbar>
 
-<button mat-button (click)="presentModal()"> Seleccion Manual</button>
+<div class="app-container" style="text-align: center; margin-bottom: 200px;">
+  <div style="margin-bottom: 50px;">
+    <button class="mat-btn-md" mat-raised-button color="accent" (click)="presentModal()"> Seleccion Manual</button>
+  </div>
 
-laskjdflaksjflkajsdfljaslkdfjsaljdflkajsldfjaklsdjflkads
+  <div>
+    <app-qr-scan style="width: 100%;" (code)="getCode($event)"> </app-qr-scan>
+  </div>
 
-<button mat-button (click)="confirm()">CONFIRM</button>
+  <div style="text-align:center;" *ngIf="isLoggin$ | async">
+      <mat-spinner style="display: inline-block;" color="accent"></mat-spinner>
+      <p>cargando plantas de la hilera ...</p>
+    </div>
 
-<button mat-button (click)="options()">Options</button>
 
+</div>

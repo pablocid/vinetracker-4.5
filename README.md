@@ -32,3 +32,6 @@ ng g component <page>
 
 ## Local network serve
 ng serve --host 0.0.0.0
+
+## Check the upload image
+aws s3api list-objects --bucket "pmgv-files-test" --query "Contents[?LastModified>='2018-11-28'].{Key:Key, Size:Size, LastModified: LastModified}"

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { RowQuery, RowService } from 'src/app/store/row';
 import { AssessmentService, AssessmentQuery } from 'src/app/store/assessment';
 import { EvaluationsQuery } from 'src/app/store/evaluations';
@@ -13,7 +13,9 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './row.component.html',
   styleUrls: ['./row.component.scss']
 })
-export class RowComponent implements OnInit {
+export class RowComponent implements OnInit, AfterViewInit {
+
+  reverseList: boolean;
 
   constructor(
     private rowQ: RowQuery,
@@ -64,6 +66,24 @@ export class RowComponent implements OnInit {
     // this.rowConfig$.subscribe(x => {
     //   console.log('row config', x);
     // });
+
+    // console.log('window.history ', window.history );
+  }
+
+  ngAfterViewInit() {
+    this.scroll(this.rowQ.getActiveId());
+  }
+  scroll(id) {
+    // console.log(`scrolling to ${id}`);
+    const el = document.getElementById(id);
+    // console.log('el', el);
+    if (el) {
+      const opt: ScrollIntoViewOptions = {
+        behavior: 'instant',
+        block: 'center'
+      };
+      el.scrollIntoView(opt);
+    }
   }
 
   async presentToast(msg, duration?: number) {
@@ -83,6 +103,7 @@ export class RowComponent implements OnInit {
   }
 
   public toReverse() {
+    this.reverseList = !this.reverseList;
     this.rowS.reverse();
   }
 
@@ -136,7 +157,7 @@ export class RowComponent implements OnInit {
   // }
 
   updateList() {
-    this.rowS.getRow(true);
+    this.rowS.getRow(true, this.reverseList);
     this.presentToast('Actualizando la lista de plantas', 5000);
   }
 
