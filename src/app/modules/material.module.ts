@@ -18,9 +18,10 @@ import {
   MatSlideToggleModule,
   MatChipsModule,
   MatFormFieldModule,
-  MatBadgeModule
+  MatBadgeModule,
 } from '@angular/material';
 import { FlexLayoutModule} from '@angular/flex-layout';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 const mat = [
   FlexLayoutModule,
@@ -28,7 +29,7 @@ const mat = [
   MatInputModule, MatListModule, MatProgressSpinnerModule, MatSnackBarModule,
   MatBottomSheetModule, MatGridListModule, MatCardModule, MatSliderModule,
   MatExpansionModule, MatSlideToggleModule, MatChipsModule, MatFormFieldModule,
-  MatBadgeModule
+  MatBadgeModule, ScrollDispatchModule
 ];
 
 @NgModule({

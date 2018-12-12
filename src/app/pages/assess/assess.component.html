@@ -29,7 +29,7 @@
 <div class="app-container">
 
   <div style="text-align:center;" *ngIf="(assessLoading$ | async)">
-    <mat-spinner color="accent"></mat-spinner>
+    <mat-spinner style="text-align:center; margin: auto;" color="accent"></mat-spinner>
   </div>
 
   <div *ngIf="!(assessLoading$ | async)">
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="space-between">
+  <div fxLayout="column" fxLayoutAlign="space-between" *ngIf="!(assessLoading$ | async)">
     <div style="padding-bottom:15px; " *ngFor="let attr of (activeAttr | async); trackBy: trackById">
       <app-attribute [id]="attr" [attribute]="attr" (goAssess)="assessAttr($event)" [canEdit]="canEdit$ | async"></app-attribute>
 

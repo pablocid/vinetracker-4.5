@@ -6,7 +6,7 @@
 </mat-card>
 
 <ng-template #listViewTmpl>
-  <div align="center" *ngIf="listViewValue | async">
+  <div align="center" *ngIf=" (listViewValue | async ) !== null">
     <h2>{{listViewValue | async}} {{(config$ | async)?.unit}}</h2>
   </div>
   <div style="display:block; position: absolute; top:-10px; right:-10px;" *ngIf="canEdit">
@@ -20,7 +20,7 @@
   <div align="center">
     <h2>
       {{editViewValue | async}}
-      <span *ngIf="!(editViewValue | async)"> - </span>
+      <span *ngIf="(editViewValue | async) === null"> - </span>
       {{(config$ | async)?.unit}}
     </h2>
     <mat-slider style="width:100%;" thumbLabel [min]="(config$ | async)?.min" [max]="(config$ | async)?.max" [step]="(config$ | async)?.step"

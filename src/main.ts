@@ -9,6 +9,9 @@ import { enableAkitaProdMode, persistState } from '@datorama/akita';
 if (environment.production) {
   enableProdMode();
   enableAkitaProdMode();
+  if ('serviceWorker' in navigator ) {
+    navigator.serviceWorker.register('ngsw-worker.js');
+  }
 }
 persistState();
 

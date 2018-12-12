@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 import { GestureConfig } from '@angular/material';
-import { ServiceWorkerModule } from '@angular/service-worker';
+// import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppRoutingModule,
     BrowserAnimationsModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    // ServiceWorkerModule.register('./ngsw-worker.js'),
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }

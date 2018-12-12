@@ -8,13 +8,15 @@ import {
   ViewChild,
   ViewContainerRef,
   TemplateRef,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  AfterViewChecked
 } from '@angular/core';
-import { RowService, Row } from 'src/app/store/row';
+import { RowService, Row, RowQuery } from 'src/app/store/row';
 import { MatBottomSheet, MatDialog } from '@angular/material';
 import { PlantListDialogComponent } from '../plant-list-dialog/plant-list-dialog.component';
 import { IOptionsDialogData, OptionsDialogComponent } from 'src/app/components/options-dialog/options-dialog.component';
 import { IConfirmDialogData, ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 export interface RowConfig {
   type: number;
@@ -27,12 +29,15 @@ export interface RowConfig {
   styleUrls: ['./plant-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlantListComponent implements OnInit {
+export class PlantListComponent implements OnInit, AfterViewChecked {
+
+  public currentIndex: number;
 
   constructor(
     // private actionSheetController: ActionSheetController,
     // private alertController: AlertController,
     private rowS: RowService,
+    private rowQ: RowQuery,
     private cdr: ChangeDetectorRef,
     private bottomSheet: MatBottomSheet,
     private dialog: MatDialog
@@ -49,9 +54,20 @@ export class PlantListComponent implements OnInit {
   @ViewChild('fen1') fen1: TemplateRef<any>;
   @ViewChild('brix') brix: TemplateRef<any>;
   @ViewChild('fen0') fen0: TemplateRef<any>;
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+  public firstContentCheck = 0;
 
   ngOnInit() {
     this.setTemplate(this.rowsConfig.type);
+    this.currentIndex = this.rowsConfig.rows.map(x => x.id).indexOf(this.rowQ.getActiveId());
+  }
+
+  ngAfterViewChecked() {
+    if (this.currentIndex !== -1 && this.firstContentCheck < 3) {
+      this.viewport.scrollToIndex(this.currentIndex, 'instant');
+      this.firstContentCheck++;
+      // console.log('ngAfterViewChecked', this.firstContentCheck);
+    }
   }
 
   trackById(index, item) {
@@ -214,7 +230,7 @@ export class PlantListComponent implements OnInit {
       if (x) {
         console.log('UPDATE', row.location);
         this.rowS.updateEntity(row.id, '5bd14b4bd71ef20014e4b327', 'no_selected', {})
-          .then( () => {
+          .then(() => {
             this.changeDetection.emit();
           });
       }
