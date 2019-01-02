@@ -26,7 +26,7 @@ export class RowService {
     const E = this.assessQ.getSnapshot().selection.e;
     const H = this.assessQ.getSnapshot().selection.h;
     // console.log('E, H, assessSchm', E, H, assessSchm);
-    const results = await this.stitch.client.callFunction('getHilera', [E, H, assessSchm]);
+    const results = await this.stitch.client.callFunction('getHilera', [ E, H, assessSchm ]);
     if (reverse) {
       this.rowStore.set(results.reverse());
     } else {

@@ -64,7 +64,7 @@ export class PlantListComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     if (this.currentIndex !== -1 && this.firstContentCheck < 3) {
-      this.viewport.scrollToIndex(this.currentIndex, 'instant');
+      this.viewport.scrollToIndex(this.currentIndex, 'auto');
       this.firstContentCheck++;
       // console.log('ngAfterViewChecked', this.firstContentCheck);
     }
@@ -165,6 +165,13 @@ export class PlantListComponent implements OnInit, AfterViewChecked {
       btns.push({ text: '15º Brix', icon: 'av_timer', handler: () => this.brixConfirm(row.id, 15) });
       btns.push({ text: '14º Brix', icon: 'av_timer', handler: () => this.brixConfirm(row.id, 14) });
       btns.push({ text: '13º Brix', icon: 'av_timer', handler: () => this.brixConfirm(row.id, 13) });
+      btns.push({
+        text: 'Descartar planta',
+        icon: 'remove_circle',
+        handler: () => {
+          this.discardPlantConfirm(row);
+        }
+      });
     }
     btns.push({
       text: 'Cancel',
