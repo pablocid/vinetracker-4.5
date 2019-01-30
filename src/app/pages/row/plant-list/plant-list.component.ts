@@ -130,7 +130,7 @@ export class PlantListComponent implements OnInit, AfterViewChecked {
 
   }
 
-  public buttonsMore(row: Row) {
+  public buttonsMore(row: Row, opts?: { rowFilter: boolean }) {
     const btns = [];
     btns.push({
       text: 'Evaluar',
@@ -165,13 +165,15 @@ export class PlantListComponent implements OnInit, AfterViewChecked {
       btns.push({ text: '15º Brix', icon: 'av_timer', handler: () => this.brixConfirm(row.id, 15) });
       btns.push({ text: '14º Brix', icon: 'av_timer', handler: () => this.brixConfirm(row.id, 14) });
       btns.push({ text: '13º Brix', icon: 'av_timer', handler: () => this.brixConfirm(row.id, 13) });
-      btns.push({
-        text: 'Descartar planta',
-        icon: 'remove_circle',
-        handler: () => {
-          this.discardPlantConfirm(row);
-        }
-      });
+      if (opts && opts.rowFilter) {
+        btns.push({
+          text: 'Descartar planta',
+          icon: 'remove_circle',
+          handler: () => {
+            this.discardPlantConfirm(row);
+          }
+        });
+      }
     }
     btns.push({
       text: 'Cancel',
@@ -185,10 +187,10 @@ export class PlantListComponent implements OnInit, AfterViewChecked {
     return btns;
   }
 
-  async more(row: Row) {
+  async more(row: Row, opts?: { rowFilter: boolean }) {
     const data: IOptionsDialogData = {};
     data.header = 'Opciones ºBrix';
-    data.buttons = this.buttonsMore(row);
+    data.buttons = this.buttonsMore(row, opts);
 
     this.bottomSheet.open(OptionsDialogComponent, { data });
   }

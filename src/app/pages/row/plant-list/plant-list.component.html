@@ -44,7 +44,7 @@
             <mat-chip color="accent" selected>{{row.brix}} Brix</mat-chip>
           </mat-chip-list>
         </p>
-        <button mat-icon-button (click)="more(row)" *ngIf="row.assessable" slot="end" fill="clear" size="default">
+        <button mat-icon-button (click)="more(row, {rowFilter: row.filter})" *ngIf="row.assessable" slot="end" fill="clear" size="default">
           <mat-icon *ngIf="editable">create</mat-icon>
           <mat-icon *ngIf="!editable">visibility</mat-icon>
         </button>
